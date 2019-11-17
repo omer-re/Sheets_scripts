@@ -1,0 +1,24 @@
+function copyFromTemplate(createTimeDrivenTriggers){
+  var templateSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var template = templateSpreadsheet.getSheets()[0]; //Assuming it is the first sheet
+
+  //The default name will be "Copy of [original name]". We can use today's date to rename it
+  var today = (new Date()).toDateString();
+
+  var currentSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  template.copyTo(currentSpreadsheet).setName(today);
+    
+}
+
+
+
+function createTimeDrivenTriggers() {
+
+  // Trigger every Thursday at 17:00.
+  ScriptApp.newTrigger('copyFromTemplate')
+      .timeBased()
+      .onWeekDay(ScriptApp.WeekDay.THURSDAY)
+      .atHour(17)
+      .create();
+}
+
